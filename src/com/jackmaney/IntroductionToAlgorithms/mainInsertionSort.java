@@ -10,7 +10,7 @@ public class mainInsertionSort {
 
 	public static void main(String[] args) {
 		
-		ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(5,2,4,6,1,3));
+		ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(5,2,4,-12,221,6,1,3));
 		
 		//InsertionSort.sort(a);
 		

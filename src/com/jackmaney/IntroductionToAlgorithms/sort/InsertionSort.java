@@ -80,10 +80,6 @@ public class InsertionSort{
 		return result;
 	}
 	
-	private <T> String join(AbstractList<T> list){
-		return join(list," ");
-	}
-	
 	public static <T extends Comparable<T>>  
 		boolean applyNextMove(AbstractList<T> list,ArrayList<Integer> moves){
 		
@@ -117,7 +113,37 @@ public class InsertionSort{
 		return applyNextMove(list,moves);
 	}
 	
-	
+	public static <T extends Comparable<T>>
+		ArrayList<Integer> getStringIndices(AbstractList<T> list
+				,ArrayList<Integer> moves){
+		
+		if(list.size() != moves.size()){
+			throw new IllegalArgumentException();
+		}
+		
+		ArrayList<Integer> indices = new ArrayList<>();
+		
+		indices.add(0);
+		int currentIndex = list.get(0).toString().length() - 1;
+		
+		for(int i = 1; i < list.size(); i++){
+			
+			if(moves.get(i-1)>0){
+				currentIndex += 5;
+			}
+			else{
+				currentIndex += 2;
+			}
+			
+			
+			
+			indices.add(i,currentIndex);
+			
+			currentIndex += list.get(i).toString().length() - 1;
+		}
+		
+		return indices;
+	}
 	
 	
 	
@@ -127,74 +153,65 @@ public class InsertionSort{
 		while(true){
 			
 			ArrayList<Integer> moves = getMoves(list);
+			ArrayList<Integer> stringIndices = getStringIndices(list, moves);
 			
-			int indexToMove = -1;
-			int amountToMoveLeft = 1;
+			StringBuilder sb = new StringBuilder();
+			sb.append(list.get(0));
 			
-			
-			
-			for(int i = 0; i < moves.size(); i++){
+			for(int i = 1; i < list.size(); i++){
+				if(moves.get(i-1) > 0){
+					sb.append(" -> ");
+				}
+				else{
+					sb.append(" ");
+				}
 				
-				if(moves.get(i) < 0){
-					indexToMove = i;
-					amountToMoveLeft = moves.get(i);
+				sb.append(list.get(i));
+			}
+			
+			System.out.println(sb.toString());
+			
+			boolean laidFirstPipe = false;
+			
+			if(moves.get(0) > 0){
+				System.out.print("|");
+				laidFirstPipe = true;
+			}
+			
+			for(int i = 1; i < list.size(); i++){
+				
+				if(moves.get(i) == 0){
+					for(int j = stringIndices.get(i-1); j < stringIndices.get(i); j++){
+						System.out.print(" ");
+					}
+				}
+				else if(moves.get(i) > 0){
+					if(laidFirstPipe){
+						for(int j = stringIndices.get(i-1); j < stringIndices.get(i); j++){
+							System.out.print("_");
+						}
+					}
+					else{
+						for(int j = stringIndices.get(i-1); j < stringIndices.get(i); j++){
+							System.out.print(" ");
+						}
+						
+						System.out.print("|");
+						laidFirstPipe = true;
+					}
+				}
+				else{
+					
+					for(int j = stringIndices.get(i-1); j < stringIndices.get(i) - 1; j++){
+						System.out.print("_");
+					}
+					
+					System.out.println("|");
+					System.out.println();
 					break;
 				}
 			}
 			
-			if(indexToMove < 0){
-				break;
-			}
-			
-			int firstIndexForPipe = -1;
-			int lastIndexForPipe = -1;
-			int indexCounter = 0;
-			
-			System.out.print(list.get(0));
-			if(moves.get(0) > 0){
-				firstIndexForPipe = 0;
-				indexCounter = list.get(0).toString().length();
-			}
-			
-			for(int i = 1; i < moves.size(); i++){
-				
-				if(moves.get(i-1) > 0){
-					System.out.print(" -> ");
-					indexCounter += 4;
-				}
-				else{
-					System.out.print(" ");
-					indexCounter++;
-				}
-				
-				
-				if(moves.get(i) > 0){
-					if(firstIndexForPipe < 0){
-						firstIndexForPipe = indexCounter + 1;
-					}
-				}
-				else if(moves.get(i) < 0){
-					lastIndexForPipe = indexCounter + 1;
-				}
-				
-				System.out.print(list.get(i));
-				indexCounter += list.get(i).toString().length();
-			}
-			
-			System.out.println();
-			
-			for(int i = 0; i < firstIndexForPipe; i++){
-				System.out.print(" ");
-			}
-			
-			System.out.print("|");
-			
-			for(int i = firstIndexForPipe + 1; i < lastIndexForPipe - 1; i++){
-				System.out.print("_");
-			}
-			
-			System.out.println("|");
-			System.out.println();
 			
 			if(!InsertionSort.applyNextMove(list)){
 				break;
