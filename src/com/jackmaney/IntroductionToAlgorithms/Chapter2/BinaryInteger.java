@@ -242,26 +242,22 @@ public class BinaryInteger extends Number{
 
 	@Override
 	public int intValue() {
-		// TODO Auto-generated method stub
-		return numberOfBits;
+		return asInt();
 	}
 
 	@Override
 	public long longValue() {
-		// TODO Auto-generated method stub
-		return (long)numberOfBits;
+		return (long)asInt();
 	}
 
 	@Override
 	public float floatValue() {
-		// TODO Auto-generated method stub
-		return (float)numberOfBits;
+		return (float)asInt();
 	}
 
 	@Override
 	public double doubleValue() {
-		// TODO Auto-generated method stub
-		return (double)numberOfBits;
+		return (double)asInt();
 	}
 
 }
