@@ -1,5 +1,7 @@
 package com.jackmaney.IntroductionToAlgorithms.Chapter2;
 
+import java.util.Arrays;
+
 /**
  * This class represents an integer as an array of zeroes and ones
  * and is used in Exercise 2.1-4 of Introduction to Algorithms.
@@ -10,6 +12,10 @@ package com.jackmaney.IntroductionToAlgorithms.Chapter2;
  */
 public class BinaryInteger extends Number{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6775381012765819559L;
 	private int numberOfBits;
 	private int[] bitArray;
 	
@@ -64,7 +70,6 @@ public class BinaryInteger extends Number{
 			//We iteratively subtract powers of 2 from n...
 			
 			while(n > 0){
-				
 				//find largest power of 2 that is less than n:
 				int powerOfTwo = 1;
 				
@@ -77,18 +82,11 @@ public class BinaryInteger extends Number{
 					}
 				}
 				
-				result[(int)(Math.log(powerOfTwo)/Math.log(2))] = 1;
+				int index = numberOfBits - 1 - (int)(Math.log(powerOfTwo)/Math.log(2));
+				
+				result[index] = 1;
 				
 				n -= powerOfTwo;
-			}
-			
-			//Just one problem...we're counting the bits in the wrong order!
-			//e.g. the ones place should be on the right end, not the left!
-			
-			for(int i = 0; i <= (float)(n-1)/2; i++){
-				int temp = result[i];
-				result[i] = result[result.length - i];
-				result[result.length - i] = temp;
 			}
 				
 		}
@@ -107,6 +105,21 @@ public class BinaryInteger extends Number{
 		
 	}
 	
+	public int asInt(){
+		
+		int result = 0;
+		
+		int[] bits = getBitArray();
+		
+		result -= bits[0] * Math.pow(2, numberOfBits - 1);
+		
+		for(int i = 1; i < bits.length; i++){
+			result += bits[i] * Math.pow(2, bits.length - 1 - i);
+		}
+		
+		return result;
+	}
+	
 	private void checkArray(int[] array){
 		for(int i = 0; i < array.length; i++){
 			if(array[i] != 1 && array[i] != 0){
@@ -117,18 +130,22 @@ public class BinaryInteger extends Number{
 	
 	public BinaryInteger add(BinaryInteger other){
 		
-		if(getN() != other.getN()){
+		if(getNumberOfBits() != other.getNumberOfBits()){
 			throw new IllegalArgumentException();
 		}
 		
-		int[] bits = new int[getN()];
+		int[] bits = new int[getNumberOfBits()];
+		
+		for(int i = 0; i < getNumberOfBits(); i++){
+			bits[i] = 0;
+		}
 		
 		int carryOver = 0;
 		
-		for(int i = getN() - 1; i >= 0; i--){
+		for(int i = getNumberOfBits() - 1; i >= 0; i--){
 			
 			int bit = getBitArray()[i];
-			int otherBit = getBitArray()[i];
+			int otherBit = other.getBitArray()[i];
 			
 			if(bit == 1 && otherBit == 1){
 				bits[i] = 0;
@@ -153,15 +170,15 @@ public class BinaryInteger extends Number{
 	
 	public BinaryInteger complement(){
 		
-		int[] bits = new int[getN()];
+		int[] bits = new int[getNumberOfBits()];
 		
-		for(int i = 0; i < getN(); i++){
+		for(int i = 0; i < getNumberOfBits(); i++){
 			bits[i] = getBitArray()[i] == 1 ? 0 : 1;
 		}
 		
 		BinaryInteger result = new BinaryInteger(bits);
 		
-		BinaryInteger one = new BinaryInteger(1);
+		BinaryInteger one = new BinaryInteger(1,getNumberOfBits());
 		
 		return result.add(one);
 	}
@@ -171,7 +188,7 @@ public class BinaryInteger extends Number{
 
 		StringBuilder sb = new StringBuilder();
 		
-		for(int i = 0; i < getN(); i++){
+		for(int i = 0; i < getNumberOfBits(); i++){
 			sb.append(getBitArray()[i]);
 			
 			if(i % 4 == 3){
@@ -188,7 +205,7 @@ public class BinaryInteger extends Number{
 	/**
 	 * @return the n
 	 */
-	public int getN() {
+	public int getNumberOfBits() {
 		return numberOfBits;
 	}
 
@@ -201,6 +218,27 @@ public class BinaryInteger extends Number{
 	}
 
 
+
+	@Override
+	public int hashCode() {
+		return asInt();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof BinaryInteger))
+			return false;
+		BinaryInteger other = (BinaryInteger) obj;
+		if (!Arrays.equals(bitArray, other.bitArray))
+			return false;
+		if (numberOfBits != other.numberOfBits)
+			return false;
+		return true;
+	}
 
 	@Override
 	public int intValue() {
