@@ -47,5 +47,11 @@ public class BinaryIntegerTest {
 		assertTrue(z.equals(ez));
 		assertTrue(z.complement().equals(z));
 	}
+	
+	@Test
+	public void ComplementTest(){
+		BinaryInteger b = new BinaryInteger(81,8);
+		assertTrue(b.complement().equals(new BinaryInteger(-81,8)));
+	}
 
 }
