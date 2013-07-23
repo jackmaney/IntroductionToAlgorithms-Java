@@ -18,11 +18,6 @@ public class BinaryIntegerTest {
 		assertTrue(b.toString().equals("0110 1"));
 		assertTrue(b.asInt() == 13);
 		
-		int[] negBits = {1,1,0,0,1};
-		BinaryInteger c = new BinaryInteger(negBits);
-		assertTrue(c.asInt() == -7);
-		assertTrue(c.add(b).asInt() == 6);
-		
 	}
 	
 	@Test
