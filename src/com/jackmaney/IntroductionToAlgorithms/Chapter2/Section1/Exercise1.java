@@ -1,11 +1,11 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2;
+package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.jackmaney.IntroductionToAlgorithms.sort.InsertionSort;
 
-public class Exercise2_1_1 {
+public class Exercise1 {
 
 	public static void main(String[] args) {
 		

@@ -1,10 +1,10 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2;
+package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section1;
 
 import java.util.Vector;
 
 import com.jackmaney.IntroductionToAlgorithms.sort.ReverseInsertionSort;
 
-public class Exercise2_1_2 {
+public class Exercise2 {
 
 	public static void main(String[] args) {
 		
