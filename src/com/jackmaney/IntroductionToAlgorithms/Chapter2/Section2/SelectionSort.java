@@ -7,81 +7,39 @@ public class SelectionSort {
 
 	public static <T extends Comparable<T>> void sort(AbstractList<T> list){
 		
-		for(int i = 0; i < list.size() - 1; i++){
+		if(list.size() > 1){
 			
-			T temp = list.get(i);
-			int index = smallestIndex(list,i+1);
-			T smallest = list.get(index);
-			list.set(i, smallest);
-			list.set(index, temp);
-		}
-		
-	}
-	
-	/**
-	 * Returns the index of the <code>k</code>th smallest value of <code>list</code>
-	 * (taking the first such index if multiple minima exist).
-	 * 
-	 * @param list
-	 * @param k
-	 */
-	public static <T extends Comparable<T>> int smallestIndex(AbstractList<T> list,int k){
-		
-		if(k < 0 || k >= list.size()){
-			throw new IllegalArgumentException();
-		}
-		
-		/*
-		 * Well, the sane solution would be to sort, but since
-		 * we're implementing a sort algorithm, that would be cheating...
-		 * 
-		 * So, what we'll have to do is first find the minimum, then 
-		 * search over every element except the minimum to find the 
-		 * second smallest element, etc...
-		 * 
-		 * Rather than removing elements from <code>list</code>, we'll
-		 * keep track of indices over which we can iterate.
-		 * 
-		 */
-		
-		ArrayList<Integer> allowedIndices = new ArrayList<>();
-		
-		for(int i = 0; i < list.size(); i++){
-			allowedIndices.add(i);
-		}
-		
-		int result = -1;
-		
-		for(int i = 0; i < k; i++){
-
+			T min = list.get(0);
+			int minIndex = 0;
 			
-			T min = null;
-
-			
-			for (Integer j : allowedIndices) {
+			for(int i = 1; i < list.size(); i++){
 				
-				if(min == null){
-					min = list.get(j);
+				if(list.get(i).compareTo(min) < 0){
+					min = list.get(i);
+					minIndex = i;
 				}
-				else if(min.compareTo(list.get(j)) > 0){
-					min = list.get(j);
-				}
-				
 			}
 			
-			result = list.indexOf(min);
+			if(minIndex > 0){
+				T temp = list.get(0);
+				list.set(0,min);
+				list.set(minIndex,temp);
+			}
 			
-			/*
-			 * Tricky, tricky! When testing this with T = Integer, I kept
-			 * getting weird, unexpected results, because remove() couldn't
-			 * tell if I wanted to remove the Integer result or the index
-			 * represented by the integer result.
-			 */
-			allowedIndices.remove(new Integer(result));
-
+			ArrayList<T> restOfList = new ArrayList<>();
+			
+			for(int i = 1; i < list.size(); i++){
+				restOfList.add(list.get(i));
+			}
+			
+			sort(restOfList);
+			
+			for(int i = 1; i < list.size(); i++){
+				list.set(i,restOfList.get(i - 1));
+			}
+			
 		}
-		
-		return result;
+
 	}
-		
+	
 }
