@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{minted}
 
 \begin{document}
 
@@ -6,8 +7,100 @@
 \author{Jack Maney}
 \maketitle
 
+Throughout, we'll assume that there are $n$ elements in the list that we wish to sort ($n>1$). As per the book, we'll use $c_i$ to denote the (constant) cost for running the $i^{th}$ line of code.
 
+We first consider the recursive sort method for Selection sort, as per SelectionSort.java. 
 
+\begin{minted}[linenos=true,mathescape=true]{java}
+
+public static <T extends Comparable<T>> void sort(AbstractList<T> list){
+		
+	if(list.size() > 1){
+		
+		T min = list.get(0);
+		int minIndex = 0;
+		
+		for(int i = 1; i < list.size(); i++){
+			
+			if(list.get(i).compareTo(min) < 0){
+				min = list.get(i);
+				minIndex = i;
+			}
+		}
+		
+		if(minIndex > 0){
+			T temp = list.get(0);
+			list.set(0,min);
+			list.set(minIndex,temp);
+		}
+		
+		ArrayList<T> restOfList = new ArrayList<>();
+		
+		for(int i = 1; i < list.size(); i++){
+			restOfList.add(list.get(i));
+		}
+		
+		sort(restOfList);
+		
+		for(int i = 1; i < list.size(); i++){
+			list.set(i,restOfList.get(i - 1));
+		}
+		
+	}
+}
+
+\end{minted}
+
+The thing to worry about is on line 28, where we call our sort method on the unsorted elements of our list. Since the cost of this operation is obviously not constant, let's denote the cost by $s_n$.
+
+We let $t$ denote the number of times that the condition tested in line 10 is true.
+
+\bigskip
+
+\begin{tabular}{|c|c|}
+\hline 
+cost & times \\ 
+\hline 
+$c_3$ & 1 \\ 
+\hline 
+$c_5$ & $n-1$ \\ 
+\hline 
+$c_6$ & $n-1$ \\ 
+\hline 
+$c_8$ & $n$ \\ 
+\hline 
+$c_{10}$ & $n-1$ \\ 
+\hline 
+$c_{11}$ & $t$ \\ 
+\hline 
+$c_{12}$ & $t$ \\ 
+\hline 
+$c_{16}$ & $1$ \\ 
+\hline 
+$c_{17}$ & 1 if $t>0$, else 0 \\
+\hline
+$c_{18}$ & 1 if $t>0$, else 0 \\
+\hline
+$c_{19}$ & 1 if $t>0$, else 0 \\
+\hline
+$c_{22}$ & 1 \\
+\hline
+$c_{24}$ & $n$ \\
+\hline
+$c_{25}$ & $n-1$ \\
+\hline
+$s_n$ & 1 \\
+\hline
+$c_{30}$ & $n$ \\
+\hline
+$c_{31}$ & $n-1$ \\
+\hline
+\end{tabular} 
 
 
 \end{document}
+
+
+
+
+
