@@ -97,6 +97,151 @@ $c_{31}$ & $n-1$ \\
 \hline
 \end{tabular} 
 
+\bigskip
+\bigskip
+
+Now, since $0 \leq t \leq n$, there exist constants $a$ and $b$ such that the total running time is
+
+\[
+	T(n) = an + b + s_n.
+\]
+
+\noindent Applying induction, there exist positive constants $a_1, a_2, \cdots, a_n$ such that 
+
+\[
+	T(n) = n a_n + (n-1) a_{n-1} + \cdots + 2 a_2 + a_1.
+\]
+
+Letting $m = \min(a_1,a_2,\cdots,a_n)$ and $M = \max(a_1,a_2,\cdots,a_n)$, we have
+
+\[
+	m \sum\limits_{i=1}^n i <= T(n) <= M \sum\limits_{i=1}^n i,
+\]
+
+\noindent and therefore this algorithm has a running time of $\Theta\left(\sum\limits_{i=1}^n i\right) = \Theta(n^2)$.
+
+Note that for any array, there are several lines that are still evaluated either $n$ or $n-1$ times for each iteration of the recursion (e.g. $c_5, c_6, c_8$, et al). Thus, the best case, worst case, and (therefore) average running times are also $\Theta(n^2)$.
+
+We now move on to the non-recursive version. We first start with computing the running time of the smallestIndex method (with comments omitted). This method returns the index of the $k^{th}$ smallest element of a list of $n$ elements $1\leq k \leq n$ (or the first such index if multiple such minima exist).
+
+\begin{minted}[linenos=true,mathescape=true]{java}
+
+public static <T extends Comparable<T>> int smallestIndex(AbstractList<T> list,int k){
+		
+	if(k < 0 || k >= list.size()){
+		throw new IllegalArgumentException();
+	}
+		
+	ArrayList<Integer> allowedIndices = new ArrayList<>();
+	
+	for(int i = 0; i < list.size(); i++){
+		allowedIndices.add(i);
+	}
+	
+	int result = -1;
+	
+	for(int i = 0; i < k; i++){
+		
+		T min = null;
+		
+		for (Integer j : allowedIndices) {
+			
+			if(min == null){
+				min = list.get(j);
+			}
+			else if(min.compareTo(list.get(j)) > 0){
+				min = list.get(j);
+			}
+			
+		}
+		
+		result = list.indexOf(min);
+		
+		allowedIndices.remove(new Integer(result));
+	}
+	
+	return result;
+}
+
+\end{minted}
+
+\bigskip
+
+As before, we'll use $c_i$ to denote constant running time on line $i$. The main thing to notice is the nested loop in lines 15--33. The outer loop runs $k$ times, and for a given $i$ with $0\leq i < k$, the inner loop runs $n-i$ times. So, the condition in line 21 is evaluated a total of 
+
+\[
+	n + (n-1) + (n-2) + \cdots + (n-k+1) = \sum\limits_{i=1}^n i - \sum\limits_{i=1}^k i = \frac{n(n+1) - k(k+1)}{2}
+\]
+
+\noindent times. Finally, we let $t_{ij}$ denote the number of times that line 25 is run (ie the number of times that we find a new minimum in our list within our allowed indices). Note that $1 \leq t_{ij} \leq n$.
+
+\bigskip
+
+\begin{tabular}{|c|c|}
+\hline 
+$c_3$ & 1 \\ 
+\hline 
+$c_4$ & 1 \\ 
+\hline 
+$c_7$ & 1 \\ 
+\hline 
+$c_9$ & $n+1$ \\ 
+\hline 
+$c_{10}$ & $n$ \\ 
+\hline 
+$c_{13}$ & 1 \\ 
+\hline 
+$c_{15}$ & $k+1$ \\ 
+\hline 
+$c_{17}$ & $k$ \\ 
+\hline 
+$c_{19}$ &  $\frac{n(n+1) - k(k+1)}{2}$ \\ 
+\hline 
+$c_{21}$ & $\frac{n(n+1) - k(k+1)}{2}$ \\ 
+\hline 
+$c_{22}$ & $k$ \\ 
+\hline 
+$c_{24}$ & $\frac{n(n+1) - k(k+1)}{2}$ \\ 
+\hline 
+$c_{25}$ & $t_{ij}$ \\ 
+\hline 
+$c_{30}$ & $k$ \\ 
+\hline 
+$c_{32}$ & $k$ \\ 
+\hline 
+$c_{35}$ & 1 \\ 
+\hline 
+\end{tabular} 
+
+\bigskip
+\bigskip
+
+So, there exist constants $a,b,c,d,e$ such that the total running time is
+
+\[
+	T(n,k) = a n^2 + bn + ck^2 + dk + e
+\]
+
+Therefore this method has a running time of $\Theta(n^2 + k^2)$.
+
+Now, let's look at the non-recursive selection sort method itself:
+
+\begin{minted}[linenos=true,mathescape=true]{java}
+
+public static <T extends Comparable<T>> void sort(AbstractList<T> list){
+		
+	for(int i = 0; i < list.size() - 1; i++){
+		
+		T temp = list.get(i);
+		int index = smallestIndex(list,i+1);
+		T smallest = list.get(index);
+		list.set(i, smallest);
+		list.set(index, temp);
+	}
+	
+}
+
+\end{minted}
 
 \end{document}
 

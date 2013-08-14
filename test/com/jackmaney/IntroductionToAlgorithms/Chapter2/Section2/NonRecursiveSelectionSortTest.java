@@ -1,4 +1,4 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section1;
+package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section2;
 
 import static org.junit.Assert.*;
 
