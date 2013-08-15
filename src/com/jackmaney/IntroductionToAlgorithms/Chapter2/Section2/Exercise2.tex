@@ -9,6 +9,8 @@
 
 Throughout, we'll assume that there are $n$ elements in the list that we wish to sort ($n>1$). As per the book, we'll use $c_i$ to denote the (constant) cost for running the $i^{th}$ line of code.
 
+Before running through the code for the selection sort algorithms (one recursive, one not recursive) below, let's first answer some of the other questions within this problem. There need only be $n-1$ swaps within selection sort because once the smallest $n-1$ elements are sorted, the remaining element must be the $n^{th}$ smallest--ie the maximum.
+
 We first consider the recursive sort method for Selection sort, as per SelectionSort.java. 
 
 \begin{minted}[linenos=true,mathescape=true]{java}
@@ -122,7 +124,7 @@ Letting $m = \min(a_1,a_2,\cdots,a_n)$ and $M = \max(a_1,a_2,\cdots,a_n)$, we ha
 
 Note that for any array, there are several lines that are still evaluated either $n$ or $n-1$ times for each iteration of the recursion (e.g. $c_5, c_6, c_8$, et al). Thus, the best case, worst case, and (therefore) average running times are also $\Theta(n^2)$.
 
-We now move on to the non-recursive version. We first start with computing the running time of the smallestIndex method (with comments omitted). This method returns the index of the $k^{th}$ smallest element of a list of $n$ elements $1\leq k \leq n$ (or the first such index if multiple such minima exist).
+We now move on to the non-recursive version. We first start with computing the running time of the $smallestIndex$ method (with comments omitted). This method returns the index of the $k^{th}$ smallest element of a list of $n$ elements $1\leq k \leq n$ (or the first such index if multiple such minima exist).
 
 \begin{minted}[linenos=true,mathescape=true]{java}
 
@@ -242,6 +244,41 @@ public static <T extends Comparable<T>> void sort(AbstractList<T> list){
 }
 
 \end{minted}
+
+\bigskip
+
+Letting $c_i$ again denote constant running times, we note that for each $1\leq i < n-1$, line 6 has a running time of $\Theta\left(n^2 + (i+1)^2\right)$.
+
+\bigskip
+
+\begin{tabular}{|c|c|}
+\hline 
+$c_3$ & $n+1$ \\ 
+\hline 
+$c_5$ & $n$ \\ 
+\hline 
+$\Theta\left(n^2 + (i+1)^2\right)$ & $n-1$ \\ 
+\hline 
+$c_7$ & $n$ \\ 
+\hline 
+$c_8$ & $n$ \\ 
+\hline 
+$c_9$ & $n$ \\ 
+\hline  
+\end{tabular} 
+
+\bigskip
+\bigskip
+
+Therefore, there exist constants $a,b,c,d$ such that the total running time of this algorithm is
+
+\[
+	T(n) = a n^3 + b n^2 + c n + d,
+\]
+
+\noindent and we have the running time as $\Theta(n^3)$.
+
+Since the runtime of $smallestIndex$ method is at least $\Theta(n^2)$ and $smallestIndex$ is evaluated $n-1$ times within the loop in the $sort$ method, we have a runtime of $\Theta(n^3)$ for the best, average, and worst case scenarios.
 
 \end{document}
 

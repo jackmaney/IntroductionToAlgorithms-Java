@@ -1,4 +1,4 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section1;
+package com.jackmaney.IntroductionToAlgorithms.Chapter2;
 
 import java.util.AbstractList;
 
