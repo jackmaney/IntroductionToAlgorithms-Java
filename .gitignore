@@ -1,5 +1,5 @@
 /bin
-/**/*.pdf
 /**/*.aux
 /**/*.log
 /**/*.gz
+Fiddle.java
