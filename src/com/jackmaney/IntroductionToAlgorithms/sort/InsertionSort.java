@@ -62,23 +62,6 @@ public class InsertionSort{
 		return result;
 	}
 	
-	private <T> String join(AbstractList<T> list,String delimiter){
-		
-		String result = null;
-		
-		if(!list.isEmpty()){
-			StringBuilder sb = new StringBuilder();
-			sb.append(list.get(0).toString());
-			
-			for(int i = 1; i < list.size(); i++){
-				sb.append(delimiter).append(list.get(i).toString());
-			}
-			
-			result = sb.toString();
-		}
-		
-		return result;
-	}
 	
 	public static <T extends Comparable<T>>  
 		boolean applyNextMove(AbstractList<T> list,ArrayList<Integer> moves){

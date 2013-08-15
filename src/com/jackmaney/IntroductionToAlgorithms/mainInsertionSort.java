@@ -2,7 +2,6 @@ package com.jackmaney.IntroductionToAlgorithms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Vector;
 
 import com.jackmaney.IntroductionToAlgorithms.sort.InsertionSort;
 
