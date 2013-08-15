@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{minted}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -279,6 +280,58 @@ Therefore, there exist constants $a,b,c,d$ such that the total running time of t
 \noindent and we have the running time as $\Theta(n^3)$.
 
 Since the runtime of $smallestIndex$ method is at least $\Theta(n^2)$ and $smallestIndex$ is evaluated $n-1$ times within the loop in the $sort$ method, we have a runtime of $\Theta(n^3)$ for the best, average, and worst case scenarios.
+
+The difference between the recursive and non-recursive methods bear out by looking at some benchmarks (provided by \href{Perfidix}{http://disy.github.io/perfidix/}) The code for the benchmarks can be found in $SelectionSortBenchmark.java$.
+
+For example, here are the benchmarks for $10$ iterations of sorting random $ArrayList$s (ie $ArrayList$s filled with $Math.random()$) of length $1000$ (the times are measured in milliseconds):
+
+\begingroup
+\fontsize{8pt}{8pt}\selectfont
+\begin{verbatim}
+
+|= Benchmark ===========================================================================================|
+| -                | unit | sum      | min     | max     | avg     | stddev | conf95            | runs  |
+|============================================== TimeMeter ==============================================|
+|. SelectionSortBenchmark ..............................................................................|
+| recursiveSort    | ms   | 118.86   | 08.66   | 39.19   | 11.89   | 09.60  | [08.66-39.19]     | 10.00 |
+| nonRecursiveSort | ms   | 14984.60 | 1458.75 | 1559.21 | 1498.46 | 42.48  | [1458.75-1559.21] | 10.00 |
+|_ Summary for SelectionSortBenchmark __________________________________________________________________|
+|                  | ms   | 15103.45 | 08.66   | 1559.21 | 755.17  | 763.19 | [08.67-1559.16]   | 20.00 |
+|-------------------------------------------------------------------------------------------------------|
+|=================================== Summary for the whole benchmark ===================================|
+|                  | ms   | 15103.45 | 08.66   | 1559.21 | 755.17  | 763.19 | [08.67-1559.16]   | 20.00 |
+|============================================= Exceptions ==============================================|
+|=======================================================================================================|
+
+\end{verbatim}
+\endgroup
+
+
+Note that the non recursive selection sort has an average time of almost 1.5 seconds (!), compared with an average of just under 12 ms for the recursive selection sort.
+
+To spot check that this gap isn't proportional to $n$ (or to $n^2$), here is the same table for 10 iterations with $n=2500$:
+
+
+\begingroup
+\fontsize{8pt}{8pt}\selectfont
+\begin{verbatim}
+
+|= Benchmark ==================================================================================================|
+| -                | unit | sum       | min      | max      | avg      | stddev  | conf95              | runs  |
+|================================================= TimeMeter ==================================================|
+|. SelectionSortBenchmark .....................................................................................|
+| recursiveSort    | ms   | 488.83    | 38.29    | 75.69    | 48.88    | 10.81   | [38.29-75.69]       | 10.00 |
+| nonRecursiveSort | ms   | 132681.55 | 12940.50 | 13440.41 | 13268.16 | 181.35  | [12940.50-13440.41] | 10.00 |
+|_ Summary for SelectionSortBenchmark _________________________________________________________________________|
+|                  | ms   | 133170.38 | 38.29    | 13440.41 | 6658.52  | 6782.50 | [38.34-13439.70]    | 20.00 |
+|--------------------------------------------------------------------------------------------------------------|
+|====================================== Summary for the whole benchmark =======================================|
+|                  | ms   | 133170.38 | 38.29    | 13440.41 | 6658.52  | 6782.50 | [38.34-13439.70]    | 20.00 |
+|================================================= Exceptions =================================================|
+|==============================================================================================================|
+
+\end{verbatim}
+\endgroup
 
 \end{document}
 
