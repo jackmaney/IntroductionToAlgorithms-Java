@@ -3,7 +3,14 @@ package com.jackmaney.IntroductionToAlgorithms.sort;
 import java.util.AbstractList;
 import java.util.ArrayList;
 
+
+
 public class MergeSort {
+
+	/*
+	 * Note that this implementation already ignores the book's notion of "sentinels", 
+	 * thus exercise 2.3-2 is already complete.
+	 */
 	
 	public static <T extends Comparable<T>> void sort(AbstractList<T> list,int p, int r){
 		if(p < r){
