@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{Exercise 2.3-3}
+\author{Jack Maney}
+\maketitle
+
+Reformulating the problem slightly, we wish to prove that for all $n\geq 1$, if
+
+\[
+	T(2^n) = \left\{
+		\begin{array}{lr}
+			2 & \textrm{ if } n = 1 \\
+			2 T(2^{n-1}) + 2^n & \textrm{ if } n > 1
+		\end{array}
+	\right.
+\]
+
+\noindent then $T(2^n) = 2^n lg(2^n) = n 2^n$.
+
+First, if $n=1$, then $T(2) = 2 = 1 * 2^1$.
+
+Suppose that $T(2^n) = n 2^n$ for some $n\geq 1$, and consider $T(2^{n+1})$. Since $n+1 > 1$, we have
+
+\[
+	T(2^{n+1}) = 2 T(2^n) + 2^{n+1} = 2n2^n + 2^{n+1} = n 2^{n+1} + 2^{n+1} = (n+1)2^{n+1}.
+\]
+
+Therefore, by induction, $T(2^n) = n2^n$ for all $n\geq 1$.
+
+
+
+\end{document}
