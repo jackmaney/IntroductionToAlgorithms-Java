@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{Exercise 2.2-3}
+\author{Jack Maney}
+\maketitle
+
+Assuming that we're searching a list $l$ for an element $v$, and assume that the probability of any element in $l$ equaling $v$ is $\frac{1}{n}$ (where $l$ has $n$ elements). Let $X$ be the random variable denoting the number of elements of $l$ that needs to be searched to find $v$ via linear search. Then, we have
+
+\[
+	E(X) = \sum\limits_{i=1}^n i P(X=i) = 1 \cdot \frac{1}{n} + \sum\limits_{i=2}^n i P(\textrm{the first } i-1 \textrm{ elements of } l \textrm{ are not } v)
+\]
+\[
+	= \frac{1}{n} + \sum\limits_{i=2}^n i \left(1 - \frac{1}{n}\right)^{i-1}.
+\]
+
+Now, consider the polynomial $f(x) = \sum\limits_{i=2}^{n} i (1-x)^{i-1}$. We have,
+
+\[
+	\int f(x) dx = C - \sum\limits_{i=2}^n (1-x)^i = C + 1 + x - \sum\limits_{i=0}^n (1-x)^i 
+\]
+\[
+	= C + 1 + x - \frac{1 - (1-x)^{n+1}}{1 - (1-x)} = C + 1 + x - \frac{ 1 - (1-x)^{n + 1}}{x}
+\]
+
+\noindent (for $x\not=0$, obviously).
+
+Thus,
+
+\[
+	f(x) = \frac{d}{dx}\left( 1 + x - \frac{ 1 - (1-x)^{n + 1}}{x} \right)
+	= \frac{-nx(1-x)^n - (1-x)^n + x^2 + 1}{x^2}
+\]
+
+
+\end{document}
