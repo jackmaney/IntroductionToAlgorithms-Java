@@ -1,0 +1,38 @@
+\documentclass{article}
+
+\usepackage[all]{xy}
+
+\begin{document}
+
+\title{Exercise 2.3-1}
+\author{Jack Maney}
+\maketitle
+
+
+\[
+\xygraph{
+!{<0cm,0cm>;<1cm,0cm>:<0cm,1cm>::}
+!{(0,0)}*+{\fbox{3}}="a"
+!{(1,0)}*+{\fbox{41}}="b"
+!{(2,0)}*+{\fbox{52}}="c"
+!{(3,0)}*+{\fbox{26}}="d"
+!{(4,0)}*+{\fbox{38}}="e"
+!{(5,0)}*+{\fbox{57}}="f"
+!{(6,0)}*+{\fbox{9}}="g"
+!{(7,0)}*+{\fbox{49}}="h"
+!{(0.5,2)}*+{\fbox{3 41}}="ab"
+!{(2.5,2)}*+{\fbox{26 52}}="cd"
+!{(4.5,2)}*+{\fbox{38 57}}="ef"
+!{(6.5,2)}*+{\fbox{9 49}}="gh"
+!{(1.5,4)}*+{\fbox{3 26 41 52}}="abcd"
+!{(5.5,4)}*+{\fbox{9 38 49 57}}="efgh"
+!{(3.5,6)}*+{\fbox{3 9 26 38 41 49 52 57}}="abcdefgh"
+"a":"ab" "b":"ab" "c":"cd" "d":"cd"
+"e":"ef" "f":"ef" "g":"gh" "h":"gh"
+"ab":"abcd" "cd":"abcd" "ef":"efgh" "gh":"efgh"
+"abcd":"abcdefgh" 
+"efgh":"abcdefgh"
+}
+\]
+
+\end{document}
