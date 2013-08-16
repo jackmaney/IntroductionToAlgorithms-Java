@@ -23,7 +23,7 @@ public class MergeSortTest {
 	
 	@Test
 	public void mergeSortTest(){
-		ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(1,3,6,2,4,5,7));
+		ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(7,1,4,3,6,2,5));
 		MergeSort.sort(a);
 		assertTrue(a.equals(sorted));
 	}
