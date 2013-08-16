@@ -12,16 +12,17 @@ Assuming that we're searching a list $l$ for an element $v$, and assume that the
 	E(X) = \sum\limits_{i=1}^n i P(X=i) = 1 \cdot \frac{1}{n} + \sum\limits_{i=2}^n i P(\textrm{the first } i-1 \textrm{ elements of } l \textrm{ are not } v)
 \]
 \[
-	= \frac{1}{n} + \sum\limits_{i=2}^n i \left(1 - \frac{1}{n}\right)^{i-1}.
+	= \frac{1}{n} + \sum\limits_{i=2}^n i \frac{1}{n} \left(1 - \frac{1}{n}\right)^{i-1}  
+	= \frac{1}{n} \left(\sum\limits_{i=1}^n i  \left(1 - \frac{1}{n}\right)^{i-1}\right).
 \]
 
-Now, consider the polynomial $f(x) = \sum\limits_{i=2}^{n} i (1-x)^{i-1}$. We have,
+Now, consider the polynomial $f(x) = \sum\limits_{i=1}^{n} i (1-x)^{i-1}$. We have,
 
 \[
-	\int f(x) dx = C - \sum\limits_{i=2}^n (1-x)^i = C + 1 + x - \sum\limits_{i=0}^n (1-x)^i 
+	\int f(x) dx = C - \sum\limits_{i=1}^n (1-x)^i = C + 1 - \sum\limits_{i=0}^n (1-x)^i 
 \]
 \[
-	= C + 1 + x - \frac{1 - (1-x)^{n+1}}{1 - (1-x)} = C + 1 + x - \frac{ 1 - (1-x)^{n + 1}}{x}
+	= C + 1  - \frac{1 - (1-x)^{n+1}}{1 - (1-x)} = C + 1 - \frac{ 1 - (1-x)^{n + 1}}{x}
 \]
 
 \noindent (for $x\not=0$, obviously).
@@ -29,9 +30,24 @@ Now, consider the polynomial $f(x) = \sum\limits_{i=2}^{n} i (1-x)^{i-1}$. We ha
 Thus,
 
 \[
-	f(x) = \frac{d}{dx}\left( 1 + x - \frac{ 1 - (1-x)^{n + 1}}{x} \right)
-	= \frac{-nx(1-x)^n - (1-x)^n + x^2 + 1}{x^2}
+	f(x) = \frac{d}{dx}\left( 1 - \frac{ 1 - (1-x)^{n + 1}}{x} \right)
+	= \frac{(n+1)x(1-x)^n + (1-x)^{n+1} - 1}{x^2}
 \]
 
+So, letting $x = \frac{1}{n}$, we have
 
+\[
+	E(X) = \frac{1}{n}\left( \frac{(n+1)(1/n)(1-1/n)^n + (1-1/n)^{n+1}-1}{1/n^2} \right) 
+\]
+\[
+	= n\left(\frac{n+1}{n}\left(1 - \frac{1}{n}\right)^n + \left( 1 - \frac{1}{n}\right)^{n+1} - 1\right) 
+	= \left(1 - \frac{1}{n}\right)^n(n+1 + n - 1 - n)
+\]
+\[
+	= \left(1 - \frac{1}{n}\right)^n n
+\]
+
+Note that this is asymptotic to $\frac{n}{e}$.
+
+Of course, the best case is when $v$ is the first element of $l$, in which case our running time is $\Theta(1)$. Our worst case scenario is when $v$ is either the last element of $l$ or is not present in $l$ (i.e. we have to search all of $l$ to find $v$), in which case our running time is $\Theta(n)$.
 \end{document}
