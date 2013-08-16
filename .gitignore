@@ -3,4 +3,5 @@
 /**/*.log
 /**/*.gz
 /**/*.dvi
+/**/*.out
 Fiddle.java
