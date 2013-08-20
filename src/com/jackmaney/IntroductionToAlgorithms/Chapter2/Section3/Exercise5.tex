@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{minted}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -110,6 +111,50 @@ Since the only source of non-constant cost in our binary search algorithm above 
 	\Theta\left(\lfloor lg(n) + 1 \rfloor\right) = \Theta(lg(n) + 1) = \Theta(lg(n)).
 \]
 
+Further, as empirical verification, here are two benchmarks (provided by \href{Perfidix}{http://disy.github.io/perfidix/}) for worst case binary searches (the code is in $BinarySearchBenchmark.java$). 
 
+Here are the benchmark results for 100 repetitions of binary search over a list of 1000 integers:
+
+\begingroup
+\fontsize{8pt}{8pt}\selectfont
+\begin{verbatim}
+
+|= Benchmark ====================================================================================|
+| -                     | unit | sum   | min   | max   | avg   | stddev | conf95        | runs   |
+|========================================== TimeMeter ===========================================|
+|. BinarySearchBenchmark ........................................................................|
+| binarySearchBenchmark | ms   | 17.73 | 00.11 | 01.50 | 00.18 | 00.15  | [00.12-00.23] | 100.00 |
+|_ Summary for BinarySearchBenchmark ____________________________________________________________|
+|                       | ms   | 17.73 | 00.11 | 01.50 | 00.18 | 00.15  | [00.12-00.23] | 100.00 |
+|------------------------------------------------------------------------------------------------|
+|=============================== Summary for the whole benchmark ================================|
+|                       | ms   | 17.73 | 00.11 | 01.50 | 00.18 | 00.15  | [00.12-00.23] | 100.00 |
+|========================================== Exceptions ==========================================|
+|================================================================================================|
+
+\end{verbatim}
+\endgroup
+
+And here are the benchmarks when increased to a list of 10000 integers (one order of magnitude greater):
+
+\begingroup
+\fontsize{8pt}{8pt}\selectfont
+\begin{verbatim}
+
+|= Benchmark ====================================================================================|
+| -                     | unit | sum   | min   | max   | avg   | stddev | conf95        | runs   |
+|========================================== TimeMeter ===========================================|
+|. BinarySearchBenchmark ........................................................................|
+| binarySearchBenchmark | ms   | 19.72 | 00.11 | 02.15 | 00.20 | 00.21  | [00.11-00.27] | 100.00 |
+|_ Summary for BinarySearchBenchmark ____________________________________________________________|
+|                       | ms   | 19.72 | 00.11 | 02.15 | 00.20 | 00.21  | [00.11-00.27] | 100.00 |
+|------------------------------------------------------------------------------------------------|
+|=============================== Summary for the whole benchmark ================================|
+|                       | ms   | 19.72 | 00.11 | 02.15 | 00.20 | 00.21  | [00.11-00.27] | 100.00 |
+|========================================== Exceptions ==========================================|
+|================================================================================================|
+
+\end{verbatim}
+\endgroup
 
 \end{document}
