@@ -7,6 +7,9 @@ import org.perfidix.annotation.BeforeEachRun;
 import org.perfidix.annotation.Bench;
 import org.perfidix.annotation.BenchClass;
 
+import com.jackmaney.IntroductionToAlgorithms.sort.NonRecursiveSelectionSort;
+import com.jackmaney.IntroductionToAlgorithms.sort.SelectionSort;
+
 @BenchClass(runs = 10)
 public final class SelectionSortBenchmark {
 

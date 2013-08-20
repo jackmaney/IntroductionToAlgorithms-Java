@@ -1,4 +1,4 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section2;
+package com.jackmaney.IntroductionToAlgorithms.sort;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.jackmaney.IntroductionToAlgorithms.Chapter2.Section2.NonRecursiveSelectionSort;
+import com.jackmaney.IntroductionToAlgorithms.sort.NonRecursiveSelectionSort;
 
 public class NonRecursiveSelectionSortTest {
 

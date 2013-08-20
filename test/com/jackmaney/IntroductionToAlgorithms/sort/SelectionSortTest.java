@@ -1,4 +1,4 @@
-package com.jackmaney.IntroductionToAlgorithms.Chapter2.Section2;
+package com.jackmaney.IntroductionToAlgorithms.sort;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.jackmaney.IntroductionToAlgorithms.Chapter2.Section2.SelectionSort;
+import com.jackmaney.IntroductionToAlgorithms.sort.SelectionSort;
 
 public class SelectionSortTest {
 
