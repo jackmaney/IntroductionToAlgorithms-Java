@@ -1,3 +1,4 @@
+package com.jackmaney.IntroductionToAlgorithms.search;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
