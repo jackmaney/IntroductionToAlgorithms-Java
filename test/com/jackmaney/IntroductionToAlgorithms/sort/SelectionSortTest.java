@@ -3,7 +3,6 @@ package com.jackmaney.IntroductionToAlgorithms.sort;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
 

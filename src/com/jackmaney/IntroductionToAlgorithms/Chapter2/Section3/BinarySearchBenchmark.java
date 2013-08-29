@@ -6,7 +6,6 @@ import java.util.Collections;
 import org.perfidix.annotation.AfterEachRun;
 import org.perfidix.annotation.BeforeEachRun;
 import org.perfidix.annotation.Bench;
-import org.perfidix.annotation.BenchClass;
 
 import com.jackmaney.IntroductionToAlgorithms.search.BinarySearch;
 
