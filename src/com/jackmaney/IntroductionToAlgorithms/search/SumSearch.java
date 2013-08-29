@@ -22,7 +22,7 @@ public class SumSearch {
 			int y = list.get(i);
 			int index = BinarySearch.search(list, new Integer(x - y));
 			
-			if(index > 0 && index != i){
+			if(index >= 0 && index != i){
 				result = new ArrayList<>();
 				result.add(y);
 				result.add(list.get(index));
