@@ -1,19 +1,23 @@
 package com.jackmaney.IntroductionToAlgorithms.search;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.jackmaney.IntroductionToAlgorithms.sort.MergeSort;
 
 public class SumSearch {
 
-	public static ArrayList<Integer> search(AbstractList<Integer> list,int x){
+	public static Set<Integer> search(Set<Integer> set,int x){
 		
-		if(list.isEmpty()){
+		if(set.isEmpty()){
 			throw new IllegalArgumentException();
 		}
 		
-		ArrayList<Integer> result = null;
+		ArrayList<Integer> list = new ArrayList<>();
+		list.addAll(set);
+		Set<Integer> result = null;
 		
 		MergeSort.sort(list);
 		
@@ -23,7 +27,7 @@ public class SumSearch {
 			int index = BinarySearch.search(list, new Integer(x - y));
 			
 			if(index >= 0 && index != i){
-				result = new ArrayList<>();
+				result = new HashSet<Integer>();
 				result.add(y);
 				result.add(list.get(index));
 				break;
