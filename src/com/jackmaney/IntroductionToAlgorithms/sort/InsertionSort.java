@@ -12,19 +12,31 @@ public class InsertionSort{
 	//should shed some light on things.
 	public static <T extends Comparable<T>> void sort(AbstractList<T> list){
 		
+		sort(list,0,list.size());
 		
-		for(int j = 1; j < list.size(); j++){
+	}
+	
+	/*
+	 * Adding a new version that sorts a list from index begin (inclusive)
+	 * to index end (exclusive) 
+	 */
+	
+	public static <T extends Comparable<T>> void sort(AbstractList<T> list, int begin, int end){
+		if(begin < 0 || begin >= end || end > list.size()){
+			throw new IllegalArgumentException();
+		}
+		
+		for(int j = begin + 1; j < end; j++){
 			
 			T key = list.get(j);
 			
 			int i = j - 1;
-			while(i >= 0 && list.get(i).compareTo(key)>0){
+			while(i >= begin && list.get(i).compareTo(key)>0){
 				list.set(i+1,list.get(i));
 				i--;
 			}
 			list.set(i+1,key);
 		}
-		
 	}
 	
 	
