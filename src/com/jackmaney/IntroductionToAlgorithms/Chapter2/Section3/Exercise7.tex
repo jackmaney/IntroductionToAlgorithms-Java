@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\usepackage{minted}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Exercise 2.3-7}
+\author{Jack Maney}
+\maketitle
+
+The code integrating binary search within insertion sort can be found in the class $SumSearch$. Again, we consider a worst-case running time--namely, that there are no two integers in the set $S$ whose sum is the target, $x$.
+
+Again, we look at the $search$ method, line by line, and compute the costs, keeping in mind that the Binary Search algorithm has a worst-case running time of $\Theta(lg(n))$ and that Merge Sort has a worst-case running time of $\Theta(n lg(n))$.
+
+\begin{minted}[linenos=true,mathescape=true]{java}
+
+public static Set<Integer> search(Set<Integer> set,int x){
+		
+		if(set.isEmpty()){
+			throw new IllegalArgumentException();
+		}
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		list.addAll(set);
+		Set<Integer> result = null;
+		
+		MergeSort.sort(list);
+		
+		for(int i = 0; i < list.size(); i++){
+			
+			int y = list.get(i);
+			int index = BinarySearch.search(list, new Integer(x - y));
+			
+			if(index >= 0 && index != i){
+				result = new HashSet<Integer>();
+				result.add(y);
+				result.add(list.get(index));
+				break;
+			}
+			
+		}
+		
+		return result;
+	}
+\end{minted}
+
+\begin{tabular}{|c|c|}
+\hline 
+cost & times \\ 
+\hline 
+$c_3$ & 1 \\ 
+\hline 
+$c_7$ & 1 \\ 
+\hline 
+$n$ (line 8)& 1 \\ 
+\hline 
+$c_9$ & 1 \\ 
+\hline 
+$n lg(n)$ (mergesort) & 1 \\ 
+\hline 
+$c_{15}$ & $n$ \\ 
+\hline 
+$lg(n)$ (binary search) & $n$ \\
+\hline
+$c_{18}, c_{19}, c_{20}$ and $c_{21}$ & $n$ \\
+\hline 
+\end{tabular} 
+
+\bigskip
+
+\noindent It follows that the worst-case running time is $\Theta(n lg(n))$.
+
+\end{document}
